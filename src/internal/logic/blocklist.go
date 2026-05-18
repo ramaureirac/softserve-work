@@ -16,10 +16,16 @@ func (b *BlockList) Search(host string, query string) (bool, error) {
 }
 
 func (b *BlockList) Add(host string, query string) error {
+
+	if b.Items == nil {
+		b.Items = make(map[string]map[string]struct{})
+	}
+
 	_, ok := b.Items[host]
 	if !ok {
 		b.Items[host] = make(map[string]struct{})
 	}
+
 	b.Items[host][query] = struct{}{}
 	return nil
 }
