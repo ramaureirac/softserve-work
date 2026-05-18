@@ -1,9 +1,9 @@
 # builder
-FROM alpine AS builder
+FROM golang:alpine AS builder
 
 WORKDIR /opt
 
-RUN apk add go make
+RUN apk add make
 
 COPY src/ src/
 COPY go.mod go.sum Makefile .
