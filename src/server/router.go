@@ -3,8 +3,10 @@ package server
 import (
 	"net/http"
 	"os"
+	"strconv"
 
 	gin "github.com/gin-gonic/gin"
+	logic "github.com/ramaureirac/softserve-work/src/internal/logic"
 )
 
 func NewRouterApp() *gin.Engine {
@@ -18,6 +20,7 @@ func NewRouterApp() *gin.Engine {
 
 	router := gin.New()
 	router.SetTrustedProxies([]string{"0.0.0.0"})
+	lst := new(logic.BlockList)
 
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, map[string]string{"code": "OK"})
@@ -27,7 +30,8 @@ func NewRouterApp() *gin.Engine {
 	router.GET("/urlinfo/:hostname_and_port/:original_path_and_query_string", func(c *gin.Context) {
 		host := c.Param("hostname_and_port")
 		query := c.Param("original_path_and_query_string")
-		c.JSON(http.StatusOK, map[string]string{"host": host, "query": query})
+		status, _ := lst.Search(host, query)
+		c.JSON(http.StatusOK, map[string]string{"host": host, "query": query, "scan": strconv.FormatBool(status)})
 	})
 
 	return router

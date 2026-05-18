@@ -3,7 +3,7 @@ FROM alpine AS builder
 
 WORKDIR /opt
 
-RUN apk add go npm nodejs make
+RUN apk add go make
 
 COPY src/ src/
 COPY go.mod go.sum Makefile .
@@ -15,7 +15,7 @@ FROM scratch
 
 WORKDIR /srv
 
-COPY --from=builder /opt/bin/devops-ragbot /bin/devops-ragbot
+COPY --from=builder /opt/bin/softserve /bin/softserve
 
 USER 1001:1001
-ENTRYPOINT ["/bin/devops-ragbot"]
+ENTRYPOINT ["/bin/softserve"]
