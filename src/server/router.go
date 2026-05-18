@@ -25,8 +25,8 @@ func NewRouterApp() *gin.Engine {
 
 	// populate database
 	lst.Add("secure.site", "/notavirus.exe")
-	lst.Add("secure.site", "/avirus.exe")
-	lst.Add("scemer.com", "/info/haxx")
+	lst.Add("hecker.info", "/dolphin.exe")
+	lst.Add("scemer.xyz", "/info/haxx/download")
 
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, map[string]string{"code": "OK"})
