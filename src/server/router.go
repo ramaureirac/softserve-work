@@ -24,5 +24,11 @@ func NewRouterApp() *gin.Engine {
 		c.Status(http.StatusOK)
 	})
 
+	router.GET("/urlinfo/:hostname_and_port/:original_path_and_query_string", func(c *gin.Context) {
+		host := c.Param("hostname_and_port")
+		query := c.Param("original_path_and_query_string")
+		c.JSON(http.StatusOK, map[string]string{"host": host, "query": query})
+	})
+
 	return router
 }
