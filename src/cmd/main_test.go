@@ -44,7 +44,7 @@ func TestURLInfoService(t *testing.T) {
 	})
 
 	t.Run("POST - Add dynamic URL", func(t *testing.T) {
-		reqPost, _ := http.NewRequest("POST", "/urlinfo/munivillalemana.gob.cl/test", nil)
+		reqPost, _ := http.NewRequest("POST", "/urlinfo/munivillalemana.gob.cl/", nil)
 		wPost := httptest.NewRecorder()
 		router.ServeHTTP(wPost, reqPost)
 
@@ -52,11 +52,11 @@ func TestURLInfoService(t *testing.T) {
 			t.Errorf("Error when creating resources, http code was: %d", wPost.Code)
 		}
 
-		reqGet, _ := http.NewRequest("GET", "/urlinfo/munivillalemana.gob.cl/test", nil)
+		reqGet, _ := http.NewRequest("GET", "/urlinfo/munivillalemana.gob.cl/", nil)
 		wGet := httptest.NewRecorder()
 		router.ServeHTTP(wGet, reqGet)
 
-		var body map[string]interface{}
+		var body map[string]any
 		json.Unmarshal(wGet.Body.Bytes(), &body)
 
 		if body["scan"] != true {
