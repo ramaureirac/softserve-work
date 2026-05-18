@@ -15,6 +15,10 @@ build:
 	@go build -o $(GO_BINARY_FOLDER)/$(GO_BINARY_NAME) ./$(GO_SOURCES)
 
 
+## testing
+test:
+	@go test -v ./$(GO_SOURCES)
+
 ## docker 
 docker-build:
 	docker build -t ${DOCKER_TAG}:latest -f ./${DOCKER_FILE} .
