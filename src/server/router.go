@@ -3,7 +3,6 @@ package server
 import (
 	"net/http"
 	"os"
-	"strconv"
 
 	gin "github.com/gin-gonic/gin"
 	logic "github.com/ramaureirac/softserve-work/src/internal/logic"
@@ -37,7 +36,7 @@ func NewRouterApp() *gin.Engine {
 		host := c.Param("hostname_and_port")
 		query := c.Param("original_path_and_query_string") //+ "?" + c.Request.URL.RawQuery
 		status, _ := lst.Search(host, query)
-		c.JSON(http.StatusOK, map[string]string{"host": host, "query": query, "scan": strconv.FormatBool(status)})
+		c.JSON(http.StatusOK, gin.H{"host": host, "query": query, "scan": status})
 	})
 
 	router.POST("/urlinfo/:hostname_and_port/*original_path_and_query_string", func(c *gin.Context) {
